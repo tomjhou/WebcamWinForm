@@ -6,6 +6,7 @@ using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
@@ -26,6 +27,8 @@ namespace WebCamWinForm2020
         Bitmap image;
         bool isUsingImageAlternate = false;
 
+        Stopwatch sw = new Stopwatch();
+
         public Form1()
         {
             InitializeComponent();
@@ -44,7 +47,7 @@ namespace WebCamWinForm2020
 
         private async void btnRecord_Click(object sender, EventArgs e)
         {
-            if (ddlVideoDevices.SelectedIndex < 0) 
+            if (ddlVideoDevices.SelectedIndex < 0)
             {
                 MessageBox.Show("Please choose a video device as the Video Source.", "Video Source Not Defined", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -52,15 +55,21 @@ namespace WebCamWinForm2020
 
             if (!isCameraRunning)
             {
-                lblStatus.Text = "Starting recording...";
-
+                lblStatus.Text = "Starting camera...";
                 StartCamera();
+                btnRecord.Text = "Stop";
+                lblStatus.Text = "Starting microphone...";
+                Application.DoEvents();
                 StartMicrophone();
+
+                frameCount = 0;
+                sw.Restart();
 
                 recordingTimer.Enabled = true;
                 recordingTimer.Start();
 
                 lblStatus.Text = "Recording...";
+
             }
             else
             {
@@ -73,22 +82,26 @@ namespace WebCamWinForm2020
             }
         }
 
-        private void StartCamera() 
+        private void StartCamera()
         {
             DisposeCameraResources();
 
             isCameraRunning = true;
 
-            btnRecord.Text = "Stop";
-
             int deviceIndex = ddlVideoDevices.SelectedIndex;
-            capture = new VideoCapture(deviceIndex);
-            capture.Open(deviceIndex);
+            capture = new VideoCapture(deviceIndex, VideoCaptureAPIs.DSHOW);
 
-            outputVideo = new VideoWriter("video.mp4", FourCC.AVC, 29, new OpenCvSharp.Size(640, 480));
+            capture.Set(VideoCaptureProperties.FrameHeight, 480);
+            capture.Set(VideoCaptureProperties.FrameWidth, 640);
+
+            lblStatus.Text = "Starting camera - opening capture device...";
+            Application.DoEvents();
+            capture.Open(deviceIndex, VideoCaptureAPIs.DSHOW);
+
+            outputVideo = new VideoWriter("video.mp4", FourCC.AVC, 59, new OpenCvSharp.Size(640, 480));
         }
 
-        private void StopCamera() 
+        private void StopCamera()
         {
             isCameraRunning = false;
 
@@ -100,7 +113,7 @@ namespace WebCamWinForm2020
             DisposeCaptureResources();
         }
 
-        private void StartMicrophone() 
+        private void StartMicrophone()
         {
             audioRecorder = new Recording();
             audioRecorder.Filename = "sound.wav";
@@ -112,7 +125,7 @@ namespace WebCamWinForm2020
             audioRecorder.StopRecording();
         }
 
-        private async Task OutputRecordingAsync() 
+        private async Task OutputRecordingAsync()
         {
             string outputPath = $"output_{DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss")}.mp4";
 
@@ -144,7 +157,7 @@ namespace WebCamWinForm2020
                     }
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 lblStatus.Text = "Recording cannot be saved.";
 
@@ -152,7 +165,7 @@ namespace WebCamWinForm2020
             }
         }
 
-        private void DisposeCameraResources() 
+        private void DisposeCameraResources()
         {
             if (frame != null)
             {
@@ -170,7 +183,7 @@ namespace WebCamWinForm2020
             }
         }
 
-        private void DisposeCaptureResources() 
+        private void DisposeCaptureResources()
         {
             if (capture != null)
             {
@@ -184,6 +197,8 @@ namespace WebCamWinForm2020
                 outputVideo.Dispose();
             }
         }
+
+        int frameCount = 0;
 
         private void recordingTimer_Tick(object sender, EventArgs e)
         {
@@ -209,9 +224,13 @@ namespace WebCamWinForm2020
                         pictureBox1.Image = isUsingImageAlternate ? imageAlternate : image;
 
                         outputVideo.Write(frame);
+
+                        frameCount++;
+                        double frameRate = frameCount / sw.Elapsed.TotalSeconds;
+                        lblStatus.Text = "Frames: " + frameCount + ", elapsed time: " + sw.Elapsed.TotalSeconds + ", frame rate: " + frameRate.ToString("0.##");
                     }
                 }
-                catch (Exception) 
+                catch (Exception)
                 {
                     pictureBox1.Image = null;
                 }
@@ -239,6 +258,37 @@ namespace WebCamWinForm2020
                     audioRecorder.StartRecording();
                     isMicrophoneJustStarted = false;
                 }
+            }
+        }
+
+        private async void buttonFrames_Click(object sender, EventArgs e)
+        {
+            if (ddlVideoDevices.SelectedIndex < 0)
+            {
+                MessageBox.Show("Please choose a video device as the Video Source.", "Video Source Not Defined", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!isCameraRunning)
+            {
+                lblStatus.Text = "Starting frame capture...";
+                StartCamera();
+                buttonFrames.Text = "Stop";
+                Application.DoEvents();
+
+                recordingTimer.Enabled = true;
+                recordingTimer.Start();
+
+                lblStatus.Text = "Recording...";
+            }
+            else
+            {
+                StopCamera();
+                StopMicrophone();
+
+                lblStatus.Text = "Recording ended.";
+
+                await OutputRecordingAsync();
             }
         }
     }

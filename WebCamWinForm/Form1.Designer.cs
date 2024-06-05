@@ -29,125 +29,139 @@ namespace WebCamWinForm2020
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.lblVideoDevices = new System.Windows.Forms.Label();
-            this.ddlVideoDevices = new System.Windows.Forms.ComboBox();
-            this.lblAzureStorageConnectionString = new System.Windows.Forms.Label();
-            this.txtAzureStorageConnectionString = new System.Windows.Forms.TextBox();
-            this.btnRecord = new System.Windows.Forms.Button();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.recordingTimer = new System.Windows.Forms.Timer(this.components);
-            this.statusStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            lblVideoDevices = new System.Windows.Forms.Label();
+            ddlVideoDevices = new System.Windows.Forms.ComboBox();
+            lblAzureStorageConnectionString = new System.Windows.Forms.Label();
+            txtAzureStorageConnectionString = new System.Windows.Forms.TextBox();
+            btnRecord = new System.Windows.Forms.Button();
+            statusStrip = new System.Windows.Forms.StatusStrip();
+            lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            pictureBox1 = new System.Windows.Forms.PictureBox();
+            recordingTimer = new System.Windows.Forms.Timer(components);
+            buttonFrames = new System.Windows.Forms.Button();
+            statusStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            SuspendLayout();
             // 
             // lblVideoDevices
             // 
-            this.lblVideoDevices.AutoSize = true;
-            this.lblVideoDevices.Location = new System.Drawing.Point(12, 9);
-            this.lblVideoDevices.Name = "lblVideoDevices";
-            this.lblVideoDevices.Size = new System.Drawing.Size(100, 20);
-            this.lblVideoDevices.TabIndex = 0;
-            this.lblVideoDevices.Text = "Video Source:";
+            lblVideoDevices.AutoSize = true;
+            lblVideoDevices.Location = new System.Drawing.Point(10, 7);
+            lblVideoDevices.Name = "lblVideoDevices";
+            lblVideoDevices.Size = new System.Drawing.Size(79, 15);
+            lblVideoDevices.TabIndex = 0;
+            lblVideoDevices.Text = "Video Source:";
             // 
             // ddlVideoDevices
             // 
-            this.ddlVideoDevices.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ddlVideoDevices.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlVideoDevices.FormattingEnabled = true;
-            this.ddlVideoDevices.Location = new System.Drawing.Point(12, 32);
-            this.ddlVideoDevices.Name = "ddlVideoDevices";
-            this.ddlVideoDevices.Size = new System.Drawing.Size(943, 28);
-            this.ddlVideoDevices.TabIndex = 1;
+            ddlVideoDevices.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            ddlVideoDevices.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            ddlVideoDevices.FormattingEnabled = true;
+            ddlVideoDevices.Location = new System.Drawing.Point(10, 24);
+            ddlVideoDevices.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            ddlVideoDevices.Name = "ddlVideoDevices";
+            ddlVideoDevices.Size = new System.Drawing.Size(826, 23);
+            ddlVideoDevices.TabIndex = 1;
             // 
             // lblAzureStorageConnectionString
             // 
-            this.lblAzureStorageConnectionString.AutoSize = true;
-            this.lblAzureStorageConnectionString.Location = new System.Drawing.Point(12, 63);
-            this.lblAzureStorageConnectionString.Name = "lblAzureStorageConnectionString";
-            this.lblAzureStorageConnectionString.Size = new System.Drawing.Size(263, 20);
-            this.lblAzureStorageConnectionString.TabIndex = 6;
-            this.lblAzureStorageConnectionString.Text = "Azure Blob Storage Connection String:";
+            lblAzureStorageConnectionString.AutoSize = true;
+            lblAzureStorageConnectionString.Location = new System.Drawing.Point(10, 47);
+            lblAzureStorageConnectionString.Name = "lblAzureStorageConnectionString";
+            lblAzureStorageConnectionString.Size = new System.Drawing.Size(209, 15);
+            lblAzureStorageConnectionString.TabIndex = 6;
+            lblAzureStorageConnectionString.Text = "Azure Blob Storage Connection String:";
             // 
             // txtAzureStorageConnectionString
             // 
-            this.txtAzureStorageConnectionString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAzureStorageConnectionString.Location = new System.Drawing.Point(12, 86);
-            this.txtAzureStorageConnectionString.Name = "txtAzureStorageConnectionString";
-            this.txtAzureStorageConnectionString.Size = new System.Drawing.Size(943, 27);
-            this.txtAzureStorageConnectionString.TabIndex = 7;
+            txtAzureStorageConnectionString.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            txtAzureStorageConnectionString.Location = new System.Drawing.Point(10, 64);
+            txtAzureStorageConnectionString.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            txtAzureStorageConnectionString.Name = "txtAzureStorageConnectionString";
+            txtAzureStorageConnectionString.Size = new System.Drawing.Size(826, 23);
+            txtAzureStorageConnectionString.TabIndex = 7;
             // 
             // btnRecord
             // 
-            this.btnRecord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRecord.Location = new System.Drawing.Point(832, 119);
-            this.btnRecord.Name = "btnRecord";
-            this.btnRecord.Size = new System.Drawing.Size(123, 41);
-            this.btnRecord.TabIndex = 8;
-            this.btnRecord.Text = "Record";
-            this.btnRecord.UseVisualStyleBackColor = true;
-            this.btnRecord.Click += new System.EventHandler(this.btnRecord_Click);
+            btnRecord.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnRecord.Location = new System.Drawing.Point(728, 89);
+            btnRecord.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            btnRecord.Name = "btnRecord";
+            btnRecord.Size = new System.Drawing.Size(108, 31);
+            btnRecord.TabIndex = 8;
+            btnRecord.Text = "Record";
+            btnRecord.UseVisualStyleBackColor = true;
+            btnRecord.Click += btnRecord_Click;
             // 
             // statusStrip
             // 
-            this.statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblStatus});
-            this.statusStrip.Location = new System.Drawing.Point(0, 557);
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(967, 26);
-            this.statusStrip.TabIndex = 9;
-            this.statusStrip.Text = "statusStrip1";
+            statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { lblStatus });
+            statusStrip.Location = new System.Drawing.Point(0, 415);
+            statusStrip.Name = "statusStrip";
+            statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 12, 0);
+            statusStrip.Size = new System.Drawing.Size(846, 22);
+            statusStrip.TabIndex = 9;
+            statusStrip.Text = "statusStrip1";
             // 
             // lblStatus
             // 
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(124, 20);
-            this.lblStatus.Text = "Strip Status Label";
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new System.Drawing.Size(97, 17);
+            lblStatus.Text = "Strip Status Label";
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 119);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(814, 435);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 10;
-            this.pictureBox1.TabStop = false;
+            pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            pictureBox1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            pictureBox1.Location = new System.Drawing.Point(10, 89);
+            pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new System.Drawing.Size(712, 326);
+            pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            pictureBox1.TabIndex = 10;
+            pictureBox1.TabStop = false;
             // 
             // recordingTimer
             // 
-            this.recordingTimer.Interval = 17;
-            this.recordingTimer.Tick += new System.EventHandler(this.recordingTimer_Tick);
+            recordingTimer.Interval = 8;
+            recordingTimer.Tick += recordingTimer_Tick;
+            // 
+            // buttonFrames
+            // 
+            buttonFrames.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            buttonFrames.Location = new System.Drawing.Point(728, 124);
+            buttonFrames.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            buttonFrames.Name = "buttonFrames";
+            buttonFrames.Size = new System.Drawing.Size(108, 31);
+            buttonFrames.TabIndex = 11;
+            buttonFrames.Text = "Frames";
+            buttonFrames.UseVisualStyleBackColor = true;
+            buttonFrames.Click += buttonFrames_Click;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(967, 583);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.statusStrip);
-            this.Controls.Add(this.btnRecord);
-            this.Controls.Add(this.txtAzureStorageConnectionString);
-            this.Controls.Add(this.lblAzureStorageConnectionString);
-            this.Controls.Add(this.ddlVideoDevices);
-            this.Controls.Add(this.lblVideoDevices);
-            this.Name = "Form1";
-            this.Text = "Webcam App (Demo)";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.statusStrip.ResumeLayout(false);
-            this.statusStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(846, 437);
+            Controls.Add(buttonFrames);
+            Controls.Add(pictureBox1);
+            Controls.Add(statusStrip);
+            Controls.Add(btnRecord);
+            Controls.Add(txtAzureStorageConnectionString);
+            Controls.Add(lblAzureStorageConnectionString);
+            Controls.Add(ddlVideoDevices);
+            Controls.Add(lblVideoDevices);
+            Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            Name = "Form1";
+            Text = "Webcam App (Demo)";
+            Load += Form1_Load;
+            statusStrip.ResumeLayout(false);
+            statusStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -161,6 +175,7 @@ namespace WebCamWinForm2020
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Timer recordingTimer;
+        private System.Windows.Forms.Button buttonFrames;
     }
 }
 
